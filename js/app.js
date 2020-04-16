@@ -45118,7 +45118,7 @@ var render = function() {
                                 staticClass: "nav-link",
                                 attrs: { to: { name: "login" } }
                               },
-                              [_vm._v("Logind")]
+                              [_vm._v("Login")]
                             )
                           ],
                           1
@@ -63317,7 +63317,8 @@ __webpack_require__.r(__webpack_exports__);
 var user = Object(_helpers_auth__WEBPACK_IMPORTED_MODULE_0__["getLocalUser"])();
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
-    appUrl: "http://localhost/Laravel-Vue-SPA",
+    // appUrl: "http://localhost/Laravel-Vue-SPA",
+    appUrl: "https://kero123.000webhostapp.com/Laravel-Vue-SPA",
     currentUser: user,
     isLoggedIn: !!user,
     loading: false,
@@ -63381,7 +63382,7 @@ var user = Object(_helpers_auth__WEBPACK_IMPORTED_MODULE_0__["getLocalUser"])();
       })["catch"](function (err) {});
     },
     likePost: function likePost(context, post) {
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.put("".concat(context.state.appUrl, "/api/post/like"), {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("".concat(context.state.appUrl, "/api/post/like"), {
         post_id: post.id
       }).then(function (data) {
         context.commit("likePost", post);

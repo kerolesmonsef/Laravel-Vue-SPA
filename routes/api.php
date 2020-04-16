@@ -15,5 +15,5 @@ Route::post('user/signUp', "UserController@store")->name('user.store');
 Route::get('post', 'PostController@index')->name('post.index');
 Route::post('post/create', 'PostController@create')->name('post.create')->middleware('jwt.auth');
 Route::get('post/show/{post}', 'PostController@show')->name('post.show');
-Route::put('post/like', 'PostController@like')->name('post.like');
+Route::post('post/like', 'PostController@like')->name('post.like');
 

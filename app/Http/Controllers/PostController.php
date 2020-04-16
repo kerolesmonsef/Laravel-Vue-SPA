@@ -21,13 +21,13 @@ class PostController extends Controller
         $posts->join('users_spa1', 'users_spa1.id', '=', 'posts_spa_l.user_id');
         $posts->selectRaw('posts_spa_l.* , users_spa1.name as user_name');
         $posts->orderBy('posts_spa_l.id', 'DESC');
-        $posts = $posts->get()->map(function ($post){
-           $post->createdAt = Carbon::parse($post->created_at)->diffForHumans();
-           return $post;
-        });
+//        $posts = $posts->get()->map(function ($post){
+//           $post->createdAt = Carbon::parse($post->created_at)->diffForHumans();
+//           return $post;
+//        });
 
         return \response()->json([
-            'posts' => $posts,
+            'posts' => $posts->get(),
         ], 200);
     }
 

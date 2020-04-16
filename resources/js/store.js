@@ -5,7 +5,8 @@ const user = getLocalUser();
 
 export default {
     state: {
-        appUrl: "http://localhost/Laravel-Vue-SPA",
+        // appUrl: "http://localhost/Laravel-Vue-SPA",
+        appUrl: "https://kero123.000webhostapp.com/Laravel-Vue-SPA",
         currentUser: user,
         isLoggedIn: !!user,
         loading: false,
@@ -69,7 +70,7 @@ export default {
             })
         },
         likePost(context, post) {
-            axios.put(`${context.state.appUrl}/api/post/like`, {post_id: post.id})
+            axios.post(`${context.state.appUrl}/api/post/like`, {post_id: post.id})
                 .then((data) => {
                     context.commit("likePost", post)
                 }).catch(err => {
