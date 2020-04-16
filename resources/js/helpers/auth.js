@@ -1,8 +1,9 @@
 import axios from 'axios'
+// import store from '../app.js'
 
-export function login(credential) {
+export function login(credential, loginPath) {
     const promise = new Promise((success, fail) => {
-        axios.post('/api/auth/login', credential)
+        axios.post(loginPath, credential)
             .then(data => {
                 success(data)
             })

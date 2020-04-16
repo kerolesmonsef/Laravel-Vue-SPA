@@ -14,7 +14,7 @@
                     </li>
                     <template v-if="!currentUser">
                         <li>
-                            <router-link to="/login" class="nav-link">Login</router-link>
+                            <router-link :to="{ name:'login' }" class="nav-link">Logind</router-link>
                         </li>
                         <li>
                             <router-link :to="{ name:'signUp' }" class="nav-link">SignUp</router-link>

@@ -84,7 +84,7 @@
                 }
 
                 this.$store.dispatch('signUp', this.$data.user).then((response) => {
-                    login(this.$data.user)
+                    login(this.$data.user, `${this.$store.state.appUrl}/api/auth/login`)
                         .then((res) => {
                             this.$store.commit("loginSuccess", res.data);
                             this.$router.push({path: '/'});

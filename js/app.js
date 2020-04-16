@@ -6902,9 +6902,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (errors) {
         this.errors = errors;
         return;
-      }
+      } // let c_user = this.currentUser;
 
-      axios.post('/api/post/create', _objectSpread({}, this.$data.post, {}, {
+
+      axios.post("".concat(this.$store.state.appUrl, "/api/post/create"), _objectSpread({}, this.$data.post, {}, {
         user_id: this.currentUser.id
       }), {
         headers: {
@@ -7109,15 +7110,15 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.$store.dispatch('login');
-      Object(_helpers_auth__WEBPACK_IMPORTED_MODULE_0__["login"])(this.$data.form).then(function (res) {
+      Object(_helpers_auth__WEBPACK_IMPORTED_MODULE_0__["login"])(this.$data.form, "".concat(this.$store.state.appUrl, "/api/auth/login")).then(function (res) {
         _this.$store.commit("loginSuccess", res.data);
 
         _this.$router.push({
           path: '/'
         });
-      })["catch"](function (error) {
+      })["catch"](function (err) {
         _this.$store.commit("loginFailed", {
-          error: error
+          error: err
         });
       });
     }
@@ -7230,7 +7231,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.$store.dispatch('signUp', this.$data.user).then(function (response) {
-        Object(_helpers_auth__WEBPACK_IMPORTED_MODULE_1__["login"])(_this.$data.user).then(function (res) {
+        Object(_helpers_auth__WEBPACK_IMPORTED_MODULE_1__["login"])(_this.$data.user, "".concat(_this.$store.state.appUrl, "/api/auth/login")).then(function (res) {
           _this.$store.commit("loginSuccess", res.data);
 
           _this.$router.push({
@@ -45115,9 +45116,9 @@ var render = function() {
                               "router-link",
                               {
                                 staticClass: "nav-link",
-                                attrs: { to: "/login" }
+                                attrs: { to: { name: "login" } }
                               },
-                              [_vm._v("Login")]
+                              [_vm._v("Logind")]
                             )
                           ],
                           1
@@ -62270,11 +62271,12 @@ module.exports = function(module) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no exports provided */
+/*! exports provided: store */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "store", function() { return store; });
 /* harmony import */ var _fortawesome_fontawesome_free_css_all_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @fortawesome/fontawesome-free/css/all.css */ "./node_modules/@fortawesome/fontawesome-free/css/all.css");
 /* harmony import */ var _fortawesome_fontawesome_free_css_all_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_fontawesome_free_css_all_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _fortawesome_fontawesome_free_js_all_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @fortawesome/fontawesome-free/js/all.js */ "./node_modules/@fortawesome/fontawesome-free/js/all.js");
@@ -62302,7 +62304,8 @@ vue__WEBPACK_IMPORTED_MODULE_3___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_5__
 var store = new vuex__WEBPACK_IMPORTED_MODULE_5__["default"].Store(_store__WEBPACK_IMPORTED_MODULE_7__["default"]);
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_4__["default"]({
   routes: _routes__WEBPACK_IMPORTED_MODULE_2__["default"],
-  mode: 'history'
+  mode: 'history',
+  base: '/Laravel-Vue-SPA/'
 });
 router.beforeEach(function (to, from, next) {
   var requiresAuth = to.meta.requiresAuth;
@@ -63209,10 +63212,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getLocalUser", function() { return getLocalUser; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+ // import store from '../app.js'
 
-function login(credential) {
+function login(credential, loginPath) {
   var promise = new Promise(function (success, fail) {
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/auth/login', credential).then(function (data) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(loginPath, credential).then(function (data) {
       success(data);
     })["catch"](function (err) {
       // fail(err)
@@ -63313,6 +63317,7 @@ __webpack_require__.r(__webpack_exports__);
 var user = Object(_helpers_auth__WEBPACK_IMPORTED_MODULE_0__["getLocalUser"])();
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
+    appUrl: "http://localhost/Laravel-Vue-SPA",
     currentUser: user,
     isLoggedIn: !!user,
     loading: false,
@@ -63371,12 +63376,12 @@ var user = Object(_helpers_auth__WEBPACK_IMPORTED_MODULE_0__["getLocalUser"])();
       context.commit("login");
     },
     getPosts: function getPosts(context) {
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/post').then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(context.state.appUrl, "/api/post")).then(function (response) {
         context.commit('updatePosts', response.data.posts);
       })["catch"](function (err) {});
     },
     likePost: function likePost(context, post) {
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.put("/api/post/like", {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.put("".concat(context.state.appUrl, "/api/post/like"), {
         post_id: post.id
       }).then(function (data) {
         context.commit("likePost", post);
@@ -63384,7 +63389,7 @@ var user = Object(_helpers_auth__WEBPACK_IMPORTED_MODULE_0__["getLocalUser"])();
     },
     signUp: function signUp(context, user) {
       var promise = new Promise(function (success, fail) {
-        axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/user/signUp", user).then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("".concat(context.state.appUrl, "/api/user/signUp"), user).then(function (response) {
           success();
         })["catch"](function (err) {
           fail(err);
@@ -63404,7 +63409,7 @@ var user = Object(_helpers_auth__WEBPACK_IMPORTED_MODULE_0__["getLocalUser"])();
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\VueSPA\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\wamp64\www\Laravel-Vue-SPA\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

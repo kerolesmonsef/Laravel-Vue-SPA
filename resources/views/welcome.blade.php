@@ -5,7 +5,7 @@
 
     <title>Laravel</title>
 
-    <link href="http://127.0.0.1:8000/css/app.css" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
 
@@ -14,4 +14,4 @@
 </div>
 </body>
 </html>
-<script src="http://127.0.0.1:8000/js/app.js" defer></script>
+<script src="{{ asset('js/app.js') }}"></script>

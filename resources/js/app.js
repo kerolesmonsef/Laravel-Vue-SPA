@@ -13,11 +13,12 @@ import storeData from "./store";
 Vue.use(VueRouter)
 Vue.use(Vuex)
 
-const store = new Vuex.Store(storeData);
+export const store = new Vuex.Store(storeData);
 
 const router = new VueRouter({
     routes,
     mode: 'history',
+    base: '/Laravel-Vue-SPA/',
 })
 
 router.beforeEach((to, from, next) => {
@@ -35,5 +36,3 @@ const app = new Vue({
     router,
     store,
 });
-
-

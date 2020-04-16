@@ -76,7 +76,8 @@
                     this.errors = errors;
                     return;
                 }
-                axios.post('/api/post/create', {...this.$data.post, ...{user_id: this.currentUser.id}}, {
+                // let c_user = this.currentUser;
+                axios.post(`${this.$store.state.appUrl}/api/post/create`, {...this.$data.post, ...{user_id: this.currentUser.id}}, {
                     headers: {
                         "Authorization": `Bearer ${this.currentUser.token}`,
                     }
@@ -84,7 +85,6 @@
                     .then((response) => {
                         this.$router.push('/posts');
                     }).catch(err => {
-
                 });
             },
             getConstraints() {

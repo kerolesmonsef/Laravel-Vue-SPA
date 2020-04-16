@@ -45,13 +45,13 @@
         methods: {
             authenticate() {
                 this.$store.dispatch('login');
-                login(this.$data.form)
+                login(this.$data.form, `${this.$store.state.appUrl}/api/auth/login`)
                     .then((res) => {
                         this.$store.commit("loginSuccess", res.data);
                         this.$router.push({path: '/'});
                     })
-                    .catch((error) => {
-                        this.$store.commit("loginFailed", {error});
+                    .catch((err) => {
+                        this.$store.commit("loginFailed", {error: err});
                     });
             }
         },

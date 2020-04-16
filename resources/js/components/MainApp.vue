@@ -1,10 +1,10 @@
 <template>
     <div id="main" class="container">
         <div class="content">
-<!--            this is a header component-->
+            <!--            this is a header component-->
             <Header/>
-<!--            <router-link to="/some_route">some dot</router-link>-->
-<!--            this is where the other components will be rendered here-->
+            <!--            <router-link to="/some_route">some dot</router-link>-->
+            <!--            this is where the other components will be rendered here-->
             <router-view></router-view>
 
         </div>

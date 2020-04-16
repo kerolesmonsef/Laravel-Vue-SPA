@@ -5,6 +5,7 @@ const user = getLocalUser();
 
 export default {
     state: {
+        appUrl: "http://localhost/Laravel-Vue-SPA",
         currentUser: user,
         isLoggedIn: !!user,
         loading: false,
@@ -61,14 +62,14 @@ export default {
             context.commit("login");
         },
         getPosts(context) {
-            axios.get('/api/post')
+            axios.get(`${context.state.appUrl}/api/post`)
                 .then((response) => {
                     context.commit('updatePosts', response.data.posts);
                 }).catch((err) => {
             })
         },
         likePost(context, post) {
-            axios.put("/api/post/like", {post_id: post.id})
+            axios.put(`${context.state.appUrl}/api/post/like`, {post_id: post.id})
                 .then((data) => {
                     context.commit("likePost", post)
                 }).catch(err => {
@@ -77,7 +78,7 @@ export default {
 
         signUp(context, user) {
             const promise = new Promise((success, fail) => {
-                axios.post("/api/user/signUp", user)
+                axios.post(`${context.state.appUrl}/api/user/signUp`, user)
                     .then((response) => {
                         success()
                     }).catch(err => {
